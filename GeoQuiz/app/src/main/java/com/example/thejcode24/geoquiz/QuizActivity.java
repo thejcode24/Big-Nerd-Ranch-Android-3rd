@@ -9,6 +9,11 @@ import android.widget.Toast;
 
 public class QuizActivity extends AppCompatActivity {
 
+    private static final String TAG = "QuizActivity";
+
+    // constant that will bet the key for the key-value pair stored in bundle
+    private static final String KEY_INDEX = "index";
+
     //m prefix on the two member (instance) variable names
     private Button mTrueButton;
     private Button mFalseButton;
@@ -39,6 +44,12 @@ public class QuizActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+
+        // check for savedInstanceState bundle data, and if it exists, assign to mCurrentIndex
+        // to keep track of which question user is on
+        if (savedInstanceState != null) {
+            mCurrentIndex = savedInstanceState.getInt(KEY_INDEX,0);
+        }
 
         // get reference for TextView and set its text to the question at current index
         // add a listener to TextView to see next question
@@ -98,9 +109,6 @@ public class QuizActivity extends AppCompatActivity {
 
     }
 
-
-
-
     // instead of separating this part in two different spots,
     // create method updateQuestion and use where needed
     private void updateQuestion() {
@@ -120,7 +128,6 @@ public class QuizActivity extends AppCompatActivity {
         }
 
         Toast.makeText(this, messageResId, Toast.LENGTH_SHORT).show();
-
 
     }
 
